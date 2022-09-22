@@ -17,6 +17,8 @@ class ViewController: UITableViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        
         let fm = FileManager.default // built-in system type that lets us work with the file manager
         let path = Bundle.main.resourcePath!
         //Bundle is a directory containing our compiled program and all our assets
@@ -46,6 +48,12 @@ class ViewController: UITableViewController {
             vc.currentCount = indexPath.row + 1
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    @objc func shareTapped(){
+        let vc = UIActivityViewController(activityItems: ["We recommend you to share the app"], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
 }
 
